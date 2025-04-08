@@ -1,0 +1,887 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+  overflow-x: hidden;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --primary-color: #6c5ce7; /* Основной фиолетовый */
+  --accent-color: #00b894; /* Акцентный зеленый */
+  --light-bg: #f8f9fa; /* Светлый фон */
+  --dark-bg: #2d3436; /* Темный фон */
+  --darker-bg: #222831; /* Еще более темный фон для шапки */
+  --dark-element: #393e46; /* Цвет для элементов на темном фоне */
+  --light-text: #ffffff; /* Белый текст */
+  --dark-text: #2d3436; /* Темный текст */
+  --muted-text: #b2bec3; /* Приглушенный текст */
+  --border-color: #dfe6e9; /* Цвет границ */
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Тень для элементов */
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* -----Home----- */
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('/public/home-bg.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  
+}
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-left: 30px;
+  padding-right: 30px;
+  min-height: 100vh;
+  width: 100%;
+  padding-top: 80px; /* Добавляем отступ для header */
+}
+
+.home-header {
+  width: 100%;
+  height: 70px;
+  background-color: #0d0d0d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  color: white;
+}
+
+.title {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.home-join {
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  margin: 0 auto;
+  -webkit-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  background-color: #202024;
+  color: white;
+}
+
+.home-input {
+  width: 100%;
+  max-width: 300px;
+  height: 50px;
+  border-radius: 5px;
+  border-color: #dfe6e9;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #dfe6e9;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  background-color: #323131;
+  color: white;
+}
+
+.home-input:focus {
+  animation: pulse .8s ease-in-out infinite;
+  border-color: #6c5ce7;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 2px 1px rgba(108, 92, 231, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.5);
+  }
+}
+
+.home-id-input{
+  margin-top: 30px;
+}
+
+.home-id-input, .home-name-input {
+  margin-bottom: 20px;
+}
+
+.home-join-button, .home-create-button {
+  width: 100%;
+  max-width: 300px;
+  position: relative;
+  padding: 10px 20px;
+  font-size: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: color 0.3s, border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.home-join-button {
+  color: #6c5ce7;
+  background-color: transparent;
+  border: 2px solid #6c5ce7;
+}
+
+.home-join-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #6c5ce7;
+  transition: width 0.4s ease;
+  z-index: -1;
+}
+
+.home-join-button:hover {
+  color: #2e2e33;
+  border-color: #6c5ce7;
+}
+
+.home-join-button:hover::before {
+  width: 100%;
+}
+
+.home-create-button {
+  position: relative; /* ⚠️ Важно! Без этого ::before "убежит" за кнопку */
+  background-color: transparent;
+  border: 2px solid #00b894;
+  color: #00b894;
+  margin-top: 10px;
+  padding: 10px 20px; /* Рекомендую добавить отступы */
+  overflow: hidden; /* Чтобы анимация не выходила за границы */
+}
+
+.home-create-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #00b894;
+  transition: width .5s;
+  z-index: -1; /* Фон под текстом */
+}
+
+.home-create-button:hover {
+  color: #2e2e33; /* Цвет текста при наведении */
+  border-color: #00b894; /* Можно убрать, если не нужно менять */
+}
+
+.home-create-button:hover::before {
+  width: 100%; /* Заполнение фона */
+}
+
+.ili {
+  border-top: 1px solid #b2bec3;
+  padding-top: 5px;
+  margin-top: 15px;
+  color: #b2bec3;
+  width: 100%;
+  max-width: 300px;
+}
+/* -----/Home----- */
+
+
+/* ------VideoPlayer------ */
+
+.video-container{
+  
+}
+
+/* ------/VideoPlayer------ */
+
+/* ------Room------ */
+
+.room-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: #181818;
+  color: white;
+}
+
+.video-section {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-player {
+  width: 90%;
+}
+
+.video-player iframe {
+  width: 100%;
+  height: 500px;
+  border-radius: 12px;
+}
+
+.link-section {
+  width: 90%;
+  margin-top: 20px;
+}
+
+.input-with-button {
+  position: relative;
+  width: 100%;
+}
+
+.room-link-input {
+  width: 100%;
+  padding: 10px;
+  padding-right: 150px; /* Make space for the button */
+  border: none;
+  border-radius: 8px;
+  background: #333;
+  color: white;
+  text-align: left;
+  font-size: 16px;
+}
+
+.room-link-input:focus {
+  outline: none;
+  background: #444;
+}
+
+.change-video-btn {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 15px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--primary-color);
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.change-video-btn:hover {
+  background: #5d4fc7;
+}
+
+.sidebar {
+  flex: 1;
+  background: #222;
+  padding: 20px;
+  border-left: 2px solid #333;
+}
+
+.sidebar h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.user-list {
+  list-style: none;
+  padding: 0;
+}
+
+.user-list li {
+  background: #333;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+/* ------Chat------ */
+.chat-container {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    background: var(--dark-bg);
+    border-radius: 8px;
+    padding: 15px;
+}
+
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: var(--darker-bg);
+    border-radius: 8px;
+}
+
+.message {
+    margin-bottom: 10px;
+    padding: 8px;
+    background: var(--dark-element);
+    border-radius: 6px;
+    word-break: break-word;
+}
+
+.message-username {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-right: 5px;
+}
+
+.message-time {
+    font-size: 0.8em;
+    color: var(--muted-text);
+    margin-left: 10px;
+}
+
+.message-form {
+    display: flex;
+    gap: 10px;
+}
+
+.message-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background: var(--dark-element);
+    color: var(--light-text);
+}
+
+.send-button {
+    padding: 10px 20px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.send-button:hover {
+    background: #5d4fc7;
+}
+
+/* ------/Chat------ */
+
+
+/* ------HomeFooter----- */
+
+
+.footer {
+  background: linear-gradient(to bottom, #000000,#000000, #070707,#0d0d0d ); 
+  color: #fff;
+  padding: 40px 0;
+  font-family: 'Arial', sans-serif;
+  width: 100vw;
+  min-height: 50vh;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.footer-column {
+  width: 30%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .footer-column {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
+
+.footer-title {
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.footer-description {
+  color: #aaa;
+  line-height: 1.5;
+}
+
+.footer-subtitle {
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-link {
+  color: #aaa;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 8px;
+  transition: color 0.3s;
+}
+
+.footer-link:hover {
+  color: #fff;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+}
+
+.social-icon {
+  color: #fff;
+  background: #555;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.social-icon:hover {
+  background: #777;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #444;
+  color: #777;
+  font-size: 14px;
+}
+
+/* ------/HomeFooter----- */
+
+/* Адаптив для Room */
+@media (max-width: 1024px) {
+    .room-container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .video-section {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .video-player iframe {
+        height: 400px;
+    }
+
+    .sidebar {
+        width: 100%;
+        border-left: none;
+        border-top: 2px solid #333;
+    }
+
+    .user-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .user-list li {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .video-player iframe {
+        height: 300px;
+    }
+
+    .room-link-input {
+        padding-right: 100px;
+    }
+
+    .change-video-btn {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-player iframe {
+        height: 300px;
+    }
+
+    .room-link-input {
+        padding-right: 80px;
+    }
+
+    .change-video-btn {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+
+    .chat-container {
+        padding: 10px;
+        height: 400px;
+    }
+
+    .message-form {
+        flex-direction: column;
+    }
+
+    .send-button {
+        width: 100%;
+    }
+}
+
+/* Адаптив для Home */
+/* Медиа-запросы для разных устройств */
+
+/* Мобильные телефоны (до 480px) */
+@media screen and (max-width: 480px) {
+  .home-container {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 70px;
+  }
+  
+  .home-header {
+    height: 60px;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .home-join {
+    padding: 20px;
+    width: 95%;
+  }
+  
+  .home-input {
+    height: 45px;
+    font-size: 14px;
+  }
+  
+  .home-id-input, .home-name-input {
+    margin-bottom: 15px;
+  }
+  
+  .home-join-button, .home-create-button {
+    font-size: 14px;
+  }
+}
+
+/* Планшеты (480px - 768px) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .home-container {
+    padding-top: 75px;
+  }
+  
+  .home-join {
+    padding: 25px;
+    width: 80%;
+  }
+}
+
+/* Десктопы (769px и больше) */
+@media screen and (min-width: 769px) {
+  .home-join {
+    min-width: 600px;
+    padding: 40px;
+  }
+}
+
+/* Десктопы (1000px и больше) */
+@media screen and (min-width: 1000px) {
+  .home-join {
+    min-width: 70%;
+    padding: 40px;
+  }
+}
+
+/* Десктопы (1500px и больше) */
+@media screen and (min-width: 1500px) {
+  .home-join {
+    min-width:70%;
+    padding: 40px;
+  }
+  .home-input {
+    width: 100%;
+    max-width: 400px;
+    height: 70px;
+    border-radius: 5px;
+    border-color: #dfe6e9;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #dfe6e9;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background-color: #323131;
+    color: white;
+    font-size: 1.7rem;
+  }
+  
+  .home-join-button, .home-create-button {
+    width: 100%;
+    max-width: 400px;
+    position: relative;
+    padding: 10px 20px;
+    font-size: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: color 0.3s, border-color 0.3s;
+    box-sizing: border-box;
+  }
+  
+  .home-join-button {
+    color: #6c5ce7;
+    background-color: transparent;
+    border: 2px solid #6c5ce7;
+    font-size: 1.7rem;
+  }
+  
+  .home-join-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #6c5ce7;
+    transition: width 0.4s ease;
+    z-index: -1;
+  }
+  
+  .home-join-button:hover {
+    color: #2e2e33;
+    border-color: #6c5ce7;
+  }
+  
+  .home-join-button:hover::before {
+    width: 100%;
+  }
+  
+  .home-create-button {
+    position: relative; /* ⚠️ Важно! Без этого ::before "убежит" за кнопку */
+    background-color: transparent;
+    border: 2px solid #00b894;
+    color: #00b894;
+    margin-top: 10px;
+    padding: 10px 20px; /* Рекомендую добавить отступы */
+    overflow: hidden; /* Чтобы анимация не выходила за границы */
+    font-size: 1.7rem;
+  }
+  
+  .home-create-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background-color: #00b894;
+    transition: width .5s;
+    z-index: -1; /* Фон под текстом */
+  }
+  
+  .home-create-button:hover {
+    color: #2e2e33; /* Цвет текста при наведении */
+    border-color: #00b894; /* Можно убрать, если не нужно менять */
+  }
+  
+  .home-create-button:hover::before {
+    width: 100%; /* Заполнение фона */
+  }
+}
+
+/* Десктопы (2000px и больше) */
+@media screen and (min-with: 2000px) {
+  .home-join {
+    min-width: 70%;
+    min-height: 500px;
+    padding: 40px;
+    font-size: 2rem;
+  }
+
+  .home-input {
+  width: 100%;
+  max-width: 400px;
+  height: 70px;
+  border-radius: 5px;
+  border-color: #dfe6e9;
+  padding: 10px;
+  font-size: 16px;
+  border: 2px solid #dfe6e9;
+  outline: none;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  background-color: #323131;
+  color: white;
+  font-size: 2rem;
+}
+
+.home-join-button, .home-create-button {
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  padding: 10px 20px;
+  font-size: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: color 0.3s, border-color 0.3s;
+  box-sizing: border-box;
+}
+
+.home-join-button {
+  color: #6c5ce7;
+  background-color: transparent;
+  border: 2px solid #6c5ce7;
+  font-size: 2rem;
+}
+
+.home-join-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #6c5ce7;
+  transition: width 0.4s ease;
+  z-index: -1;
+}
+
+.home-join-button:hover {
+  color: #2e2e33;
+  border-color: #6c5ce7;
+}
+
+.home-join-button:hover::before {
+  width: 100%;
+}
+
+.home-create-button {
+  position: relative; /* ⚠️ Важно! Без этого ::before "убежит" за кнопку */
+  background-color: transparent;
+  border: 2px solid #00b894;
+  color: #00b894;
+  margin-top: 10px;
+  padding: 10px 20px; /* Рекомендую добавить отступы */
+  overflow: hidden; /* Чтобы анимация не выходила за границы */
+  font-size: 2rem;
+}
+
+.home-create-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background-color: #00b894;
+  transition: width .5s;
+  z-index: -1; /* Фон под текстом */
+}
+
+.home-create-button:hover {
+  color: #2e2e33; /* Цвет текста при наведении */
+  border-color: #00b894; /* Можно убрать, если не нужно менять */
+}
+
+.home-create-button:hover::before {
+  width: 100%; /* Заполнение фона */
+}
+}
+
+
