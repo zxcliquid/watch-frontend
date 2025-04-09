@@ -30,9 +30,9 @@ const HomeFooter = () => {
         <div className="footer-column">
           <h4 className="footer-subtitle">Наши соцсети</h4>
           <div className="social-icons">
-            <a href="https://www.instagram.com/" target="_blank" className="social-icon"><img src="/public/instagram.png" alt="instagram" /></a>
-            <a href="https://t.me/watchtogether" target="_blank" className="social-icon"><img src="/public/telegram.png" alt="telegram" /></a>
-            <a href="https://www.youtube.com/" target="_blank" className="social-icon"><img src="/public/youtube.png" alt="youtube" /></a>
+            <a href="https://www.instagram.com/" target="_blank" className="social-icon"><img src="/instagram.png" alt="instagram" /></a>
+            <a href="https://t.me/watchtogether" target="_blank" className="social-icon"><img src="/telegram.png" alt="telegram" /></a>
+            <a href="https://www.youtube.com/" target="_blank" className="social-icon"><img src="/youtube.png" alt="youtube" /></a>
           </div>
         </div>
       </div>
