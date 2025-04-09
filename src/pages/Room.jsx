@@ -1,29 +1,32 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import VideoPlayer from "../components/VideoPlayer";
-import Chat from "../components/Chat";
-import UserList from "../components/UserList";
-import socket from "../utils/socket";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import VideoPlayer from '../components/VideoPlayer';
+import Chat from '../components/Chat';
+import UserList from '../components/UserList';
+import socket from '../utils/socket';
 
 const Room = () => {
-  const { roomId } = useParams();
+  const { roomId } = useParams();  // Извлекаем roomId из URL
   const [users, setUsers] = useState([]);
-  const username = localStorage.getItem("username") || "Аноним";
+  const username = localStorage.getItem('username') || 'Аноним';
 
   useEffect(() => {
-    // Подключаемся к комнате
     console.log("Подключаюсь к комнате:", roomId);
+    
+    // Подключаемся к комнате с именем пользователя и roomId
     socket.emit("join-room", { roomId, username });
 
+    // Обновляем список пользователей
     socket.on("update-users", (updatedUsers) => {
-      setUsers(updatedUsers);
+      setUsers(updatedUsers);  // Обновляем состояние с пользователями
     });
 
+    // Очистка при выходе
     return () => {
-      socket.emit("leave-room", roomId);
-      socket.off("update-users");
+      socket.emit("leave-room", roomId);  // Сообщаем серверу, что пользователь покидает комнату
+      socket.off("update-users");  // Очищаем обработчик события
     };
-  }, [roomId]);
+  }, [roomId, username]);
 
   return (
     <div className="room-container">

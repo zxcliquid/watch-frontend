@@ -659,6 +659,10 @@ body{
   .home-join-button, .home-create-button {
     font-size: 14px;
   }
+
+  .video-container{
+    width: 60%;
+  }
 }
 
 /* Планшеты (480px - 768px) */
@@ -671,6 +675,9 @@ body{
     padding: 25px;
     width: 80%;
   }
+  .video-container{
+    width: 80%;
+  }
 }
 
 /* Десктопы (769px и больше) */
@@ -678,6 +685,9 @@ body{
   .home-join {
     min-width: 600px;
     padding: 40px;
+  }
+  .video-container{
+    width: 80%;
   }
 }
 
