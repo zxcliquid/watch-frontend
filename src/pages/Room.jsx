@@ -18,15 +18,21 @@ const Room = () => {
 
     // Обновляем список пользователей
     socket.on("update-users", (updatedUsers) => {
-      setUsers(updatedUsers);  // Обновляем состояние с пользователями
+        setUsers(updatedUsers);  // Обновляем состояние с пользователями
+    });
+
+    // Обработка ошибки, если комната не найдена
+    socket.on("error", (message) => {
+        alert(message);  // Покажем ошибку, если комната не найдена
     });
 
     // Очистка при выходе
     return () => {
-      socket.emit("leave-room", roomId);  // Сообщаем серверу, что пользователь покидает комнату
-      socket.off("update-users");  // Очищаем обработчик события
+        socket.emit("leave-room", roomId);  // Сообщаем серверу, что пользователь покидает комнату
+        socket.off("update-users");  // Очищаем обработчик события
+        socket.off("error");  // Очищаем обработчик ошибки
     };
-  }, [roomId, username]);
+}, [roomId, username]);
 
   return (
     <div className="room-container">
