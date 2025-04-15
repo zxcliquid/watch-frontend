@@ -1,30 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import socket from "../utils/socket";
 
-const Chat = ({ roomId }) => {
-  const [messages, setMessages] = useState([]);
+const Chat = ({ roomId, messages }) => {
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
 
-  useEffect(() => {
-    // Запрашиваем историю чата при монтировании
-    socket.emit("get-chat-history", { roomId });
-
-    socket.on("chat-history", (chatData) => {
-      setMessages(chatData);
-    });
-
-    socket.on("chat-message", (data) => {
-      console.log("Получено сообщение:", data);
-      setMessages((prev) => [...prev, data]);
-    });
-  
-    return () => {
-      socket.off("chat-history");
-      socket.off("chat-message");
-    };
-  }, [roomId]);
-  
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
