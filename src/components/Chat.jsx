@@ -7,17 +7,24 @@ const Chat = ({ roomId }) => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
+    // Запрашиваем историю чата при монтировании
+    socket.emit("get-chat-history", { roomId });
+
+    socket.on("chat-history", (chatData) => {
+      setMessages(chatData);
+    });
+
     socket.on("chat-message", (data) => {
       console.log("Получено сообщение:", data);
       setMessages((prev) => [...prev, data]);
     });
   
     return () => {
+      socket.off("chat-history");
       socket.off("chat-message");
     };
-  }, []);
+  }, [roomId]);
   
-
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
