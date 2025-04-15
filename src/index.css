@@ -660,8 +660,9 @@ body{
     font-size: 14px;
   }
 
+
   .video-container{
-    width: 60%;
+    width: 100%;
   }
 }
 

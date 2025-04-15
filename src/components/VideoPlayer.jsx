@@ -61,7 +61,7 @@ const VideoPlayer = ({ roomId }) => {
 
   return (
     <div className="video-container">
-      <YouTube
+      <YouTube className="youtube"
         videoId={videoId}
         opts={options}
         onReady={handleReady}
