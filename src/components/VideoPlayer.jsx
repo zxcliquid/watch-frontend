@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 import socket from "../utils/socket";
+import { disconnect } from "mongoose";
 
 function extractVideoId(input) {
   // Если это уже чистый id
@@ -89,15 +90,17 @@ const VideoPlayer = ({ roomId }) => {
   };
 
   return (
-    <div className="video-container">
-      <YouTube
-        videoId={videoId}
-        opts={options}
-        onReady={handleReady}
-        onStateChange={handleStateChange}
-        onPlaybackRateChange={handleSeek}
-        onPlaybackQualityChange={handleSeek}
-      />
+    <div>
+          <div className="video-container">
+            <YouTube
+              videoId={videoId}
+              opts={options}
+              onReady={handleReady}
+              onStateChange={handleStateChange}
+              onPlaybackRateChange={handleSeek}
+              onPlaybackQualityChange={handleSeek}
+            />
+          </div>
       <button onClick={changeVideo}>Сменить видео</button>
     </div>
   );
