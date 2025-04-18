@@ -3,52 +3,71 @@ import YouTube from "react-youtube";
 import socket from "../utils/socket";
 
 const VideoPlayer = ({ roomId }) => {
-  const [videoId, setVideoId] = useState("dQw4w9WgXcQ"); // Тестовое видео
+  const [videoId, setVideoId] = useState("dQw4w9WgXcQ");
   const playerRef = useRef(null);
-  const [currentTime, setCurrentTime] = useState(0);  // Время текущего видео
+  const ignoreEvents = useRef(false);
 
   useEffect(() => {
-    socket.on("sync-video", ({ action, time }) => {
-      console.log(`Получено событие синхронизации видео: ${action} на ${time} секунд`);
+    socket.on("sync-video", ({ action, time, videoId: newVideoId }) => {
       const player = playerRef.current;
       if (!player) return;
 
-      if (action === "play") player.playVideo();
-      else if (action === "pause") player.pauseVideo();
-      else if (action === "seek" && typeof time === "number") {
-        player.seekTo(time, true);
+      ignoreEvents.current = true;
+      if (newVideoId && newVideoId !== videoId) {
+        setVideoId(newVideoId);
+        player.loadVideoById(newVideoId, time || 0);
+      } else if (action === "play") {
+        player.seekTo(time || 0, true);
+        player.playVideo();
+      } else if (action === "pause") {
+        player.pauseVideo();
+      } else if (action === "seek") {
+        player.seekTo(time || 0, true);
       }
+      setTimeout(() => { ignoreEvents.current = false; }, 500);
     });
 
     return () => {
       socket.off("sync-video");
     };
-  }, []);
+    // eslint-disable-next-line
+  }, [videoId]);
 
   const handleReady = (event) => {
     playerRef.current = event.target;
-    setCurrentTime(playerRef.current.getCurrentTime());  // Устанавливаем начальное время видео
   };
 
   const handlePlay = () => {
+    if (ignoreEvents.current) return;
     const time = playerRef.current.getCurrentTime();
-    setCurrentTime(time);  // Обновляем текущее время при воспроизведении
-    socket.emit("video-action", { roomId, action: "play", time });
     socket.emit("sync-video", { roomId, action: "play", time });
   };
 
   const handlePause = () => {
+    if (ignoreEvents.current) return;
     const time = playerRef.current.getCurrentTime();
-    setCurrentTime(time);  // Обновляем текущее время при паузе
-    socket.emit("video-action", { roomId, action: "pause", time });
     socket.emit("sync-video", { roomId, action: "pause", time });
   };
 
+  const handleStateChange = (event) => {
+    if (ignoreEvents.current) return;
+    // 1 = play, 2 = pause, 0 = ended, 3 = buffering, 5 = cued
+    if (event.data === 1) handlePlay();
+    if (event.data === 2) handlePause();
+  };
+
   const handleSeek = () => {
+    if (ignoreEvents.current) return;
     const time = playerRef.current.getCurrentTime();
-    setCurrentTime(time);  // Обновляем текущее время при перемотке
-    socket.emit("video-action", { roomId, action: "seek", time });
     socket.emit("sync-video", { roomId, action: "seek", time });
+  };
+
+  const changeVideo = () => {
+    const newVideoId = prompt("Введите YouTube Video ID:");
+    if (newVideoId) {
+      setVideoId(newVideoId);
+      socket.emit("sync-video", { roomId, action: "pause", time: 0, videoId: newVideoId });
+    }
   };
 
   const options = {
@@ -58,38 +77,15 @@ const VideoPlayer = ({ roomId }) => {
     },
   };
 
-  const changeVideo = () => {
-    const newVideoId = prompt("Введите YouTube Video ID:");
-    if (newVideoId) {
-      setVideoId(newVideoId);
-      socket.emit("video-action", { roomId, action: "seek", time: 0 });
-      socket.emit("sync-video", { videoId: newVideoId, time: 0, action: "pause" });
-    }
-  };
-
-  // Регулярно отправляем время видео
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (playerRef.current) {
-        const currentTime = playerRef.current.getCurrentTime();
-        setCurrentTime(currentTime);
-        socket.emit("video-action", { roomId, action: "seek", time: currentTime });
-        socket.emit("sync-video", { roomId, action: "seek", time: currentTime });
-      }
-    }, 1000);  // Отправляем данные каждую секунду
-
-    return () => clearInterval(interval);  // Очистка интервала при размонтировании компонента
-  }, [roomId]);
-
   return (
     <div className="video-container">
       <YouTube
         videoId={videoId}
         opts={options}
         onReady={handleReady}
-        onPlay={handlePlay}
-        onPause={handlePause}
-        onStateChange={handleSeek}
+        onStateChange={handleStateChange}
+        onPlaybackRateChange={handleSeek}
+        onPlaybackQualityChange={handleSeek}
       />
       <button onClick={changeVideo}>Сменить видео</button>
     </div>

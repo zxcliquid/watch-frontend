@@ -2,37 +2,30 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import VideoPlayer from '../components/VideoPlayer';
 import Chat from '../components/Chat';
-import UserList from '../components/UserList';
 import socket from '../utils/socket';
 
 const Room = () => {
-  const { roomId } = useParams();  // Извлекаем roomId из URL
+  const { roomId } = useParams();
   const [users, setUsers] = useState([]);
   const username = localStorage.getItem('username') || 'Аноним';
 
   useEffect(() => {
-    console.log("Подключаюсь к комнате:", roomId);
-    
-    // Подключаемся к комнате с именем пользователя и roomId
     socket.emit("join-room", { roomId, username });
 
-    // Обновляем список пользователей
     socket.on("update-users", (updatedUsers) => {
-        setUsers(updatedUsers);  // Обновляем состояние с пользователями
+      setUsers(updatedUsers);
     });
 
-    // Обработка ошибки, если комната не найдена
     socket.on("error", (message) => {
-        alert(message);  // Покажем ошибку, если комната не найдена
+      alert(message);
     });
 
-    // Очистка при выходе
     return () => {
-        socket.emit("leave-room", roomId);  // Сообщаем серверу, что пользователь покидает комнату
-        socket.off("update-users");  // Очищаем обработчик события
-        socket.off("error");  // Очищаем обработчик ошибки
+      socket.emit("leave-room", roomId);
+      socket.off("update-users");
+      socket.off("error");
     };
-}, [roomId, username]);
+  }, [roomId, username]);
 
   return (
     <div className="room-container">
@@ -43,7 +36,7 @@ const Room = () => {
         <h2>Список пользователей</h2>
         <ul className="user-list">
           {users.map((user, index) => (
-            <li key={index}>{user.username}</li>
+            <li key={user.username + user.socketId}>{user.username}</li>
           ))}
         </ul>
         <Chat roomId={roomId} />
@@ -51,6 +44,5 @@ const Room = () => {
     </div>
   );
 };
-
 
 export default Room;
