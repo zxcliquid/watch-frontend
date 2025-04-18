@@ -1,19 +1,48 @@
-const mongoose = require('mongoose');
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import VideoPlayer from '../components/VideoPlayer';
+import Chat from '../components/Chat';
+import socket from '../utils/socket';
 
-const roomSchema = new mongoose.Schema({
-  roomId: { type: String, required: true, unique: true },
-  users: [{ username: String, socketId: String }],
-  chat: [
-    {
-      username: String,
-      message: String,
-      timestamp: String,
-    },
-  ],
-  videoId: { type: String, default: "dQw4w9WgXcQ" }, // <--- добавьте это!
-  videoTime: { type: Number, default: 0 },
-});
+const Room = () => {
+  const { roomId } = useParams();
+  const [users, setUsers] = useState([]);
+  const username = localStorage.getItem('username') || 'Аноним';
 
-const Room = mongoose.model('Room', roomSchema);
+  useEffect(() => {
+    socket.emit("join-room", { roomId, username });
 
-module.exports = Room;
+    socket.on("update-users", (updatedUsers) => {
+      setUsers(updatedUsers);
+    });
+
+    socket.on("error", (message) => {
+      alert(message);
+    });
+
+    return () => {
+      socket.emit("leave-room", roomId);
+      socket.off("update-users");
+      socket.off("error");
+    };
+  }, [roomId, username]);
+
+  return (
+    <div className="room-container">
+      <div className="video-section">
+        <VideoPlayer roomId={roomId} />
+      </div>
+      <div className="sidebar">
+        <h2>Список пользователей</h2>
+        <ul className="user-list">
+          {users.map((user, index) => (
+            <li key={user.username + user.socketId}>{user.username}</li>
+          ))}
+        </ul>
+        <Chat roomId={roomId} />
+      </div>
+    </div>
+  );
+};
+
+export default Room;
