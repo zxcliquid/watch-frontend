@@ -11,7 +11,7 @@ function extractVideoId(input) {
 }
 
 const VideoPlayer = ({ roomId }) => {
-  const [videoId, setVideoId] = useState("dQw4w9WgXcQ");
+  const [videoId, setVideoId] = useState(0);
   const playerRef = useRef(null);
   const ignoreEvents = useRef(false);
 
