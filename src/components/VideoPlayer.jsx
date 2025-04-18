@@ -2,17 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 import socket from "../utils/socket";
 
+function extractVideoId(input) {
+  // Если это уже чистый id
+  if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
+  // Если это ссылка
+  const match = input.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
+  return match ? match[1] : null;
+}
+
 const VideoPlayer = ({ roomId }) => {
   const [videoId, setVideoId] = useState("dQw4w9WgXcQ");
   const playerRef = useRef(null);
   const ignoreEvents = useRef(false);
-
-  function extractVideoId(input) {
-    if (!input) return null;
-    if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
-    const match = input.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
-    return match ? match[1] : null;
-  }
 
   useEffect(() => {
     socket.on("sync-video", ({ action, time, videoId: newVideoId }) => {
