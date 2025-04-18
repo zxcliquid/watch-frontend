@@ -7,11 +7,18 @@ const VideoPlayer = ({ roomId }) => {
   const playerRef = useRef(null);
   const ignoreEvents = useRef(false);
 
+  function extractVideoId(input) {
+    if (!input) return null;
+    if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
+    const match = input.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
+    return match ? match[1] : null;
+  }
+
   useEffect(() => {
     socket.on("sync-video", ({ action, time, videoId: newVideoId }) => {
       const player = playerRef.current;
       if (!player) return;
-
+  
       ignoreEvents.current = true;
       if (newVideoId && newVideoId !== videoId) {
         setVideoId(newVideoId);
@@ -26,7 +33,7 @@ const VideoPlayer = ({ roomId }) => {
       }
       setTimeout(() => { ignoreEvents.current = false; }, 500);
     });
-
+  
     return () => {
       socket.off("sync-video");
     };
@@ -63,10 +70,13 @@ const VideoPlayer = ({ roomId }) => {
   };
 
   const changeVideo = () => {
-    const newVideoId = prompt("Введите YouTube Video ID:");
+    const input = prompt("Введите ссылку на YouTube или Video ID:");
+    const newVideoId = extractVideoId(input);
     if (newVideoId) {
       setVideoId(newVideoId);
       socket.emit("sync-video", { roomId, action: "pause", time: 0, videoId: newVideoId });
+    } else {
+      alert("Некорректная ссылка или ID!");
     }
   };
 
