@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 import socket from "../utils/socket";
-import { disconnect } from "mongoose";
 
 function extractVideoId(input) {
   // Если это уже чистый id
