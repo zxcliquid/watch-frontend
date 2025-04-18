@@ -90,17 +90,15 @@ const VideoPlayer = ({ roomId }) => {
   };
 
   return (
-    <div>
-          <div className="video-container">
-            <YouTube
-              videoId={videoId}
-              opts={options}
-              onReady={handleReady}
-              onStateChange={handleStateChange}
-              onPlaybackRateChange={handleSeek}
-              onPlaybackQualityChange={handleSeek}
-            />
-          </div>
+    <div className="video-container">
+      <YouTube
+        videoId={videoId}
+        opts={options}
+        onReady={handleReady}
+        onStateChange={handleStateChange}
+        onPlaybackRateChange={handleSeek}
+        onPlaybackQualityChange={handleSeek}
+      />
       <button onClick={changeVideo}>Сменить видео</button>
     </div>
   );
