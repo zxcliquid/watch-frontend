@@ -3,15 +3,14 @@ import YouTube from "react-youtube";
 import socket from "../utils/socket";
 
 function extractVideoId(input) {
-  // Если это уже чистый id
   if (/^[a-zA-Z0-9_-]{11}$/.test(input)) return input;
-  // Если это ссылка
   const match = input.match(/(?:v=|\/)([a-zA-Z0-9_-]{11})/);
   return match ? match[1] : null;
 }
 
 const VideoPlayer = ({ roomId }) => {
   const [videoId, setVideoId] = useState(0);
+  const [inputValue, setInputValue] = useState("");
   const playerRef = useRef(null);
   const ignoreEvents = useRef(false);
 
@@ -19,7 +18,7 @@ const VideoPlayer = ({ roomId }) => {
     socket.on("sync-video", ({ action, time, videoId: newVideoId }) => {
       const player = playerRef.current;
       if (!player) return;
-  
+
       ignoreEvents.current = true;
       if (newVideoId && newVideoId !== videoId) {
         setVideoId(newVideoId);
@@ -34,7 +33,7 @@ const VideoPlayer = ({ roomId }) => {
       }
       setTimeout(() => { ignoreEvents.current = false; }, 500);
     });
-  
+
     return () => {
       socket.off("sync-video");
     };
@@ -59,7 +58,6 @@ const VideoPlayer = ({ roomId }) => {
 
   const handleStateChange = (event) => {
     if (ignoreEvents.current) return;
-    // 1 = play, 2 = pause, 0 = ended, 3 = buffering, 5 = cued
     if (event.data === 1) handlePlay();
     if (event.data === 2) handlePause();
   };
@@ -70,12 +68,16 @@ const VideoPlayer = ({ roomId }) => {
     socket.emit("sync-video", { roomId, action: "seek", time });
   };
 
-  const changeVideo = () => {
-    const input = prompt("Введите ссылку на YouTube или Video ID:");
-    const newVideoId = extractVideoId(input);
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleChangeVideo = () => {
+    const newVideoId = extractVideoId(inputValue.trim());
     if (newVideoId) {
       setVideoId(newVideoId);
       socket.emit("sync-video", { roomId, action: "pause", time: 0, videoId: newVideoId });
+      setInputValue("");
     } else {
       alert("Некорректная ссылка или ID!");
     }
@@ -98,7 +100,23 @@ const VideoPlayer = ({ roomId }) => {
         onPlaybackRateChange={handleSeek}
         onPlaybackQualityChange={handleSeek}
       />
-      <button onClick={changeVideo}>Сменить видео</button>
+      <div className="video-controls">
+        <input
+          type="text"
+          className="video-input"
+          placeholder="Вставьте ссылку на YouTube или Video ID"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={e => { if (e.key === "Enter") handleChangeVideo(); }}
+        />
+        <button
+          className="change-button"
+          onClick={handleChangeVideo}
+          disabled={!inputValue.trim()}
+        >
+          Сменить видео
+        </button>
+      </div>
     </div>
   );
 };
