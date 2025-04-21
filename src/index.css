@@ -605,6 +605,7 @@
     .chat-container { padding: 10px; height: 400px; }
     .message-form { flex-direction: column; }
     .send-button { width: 100%; }
+    .room-header-container {font-size: 12px;}
   }
   
   /* --- Footer --- */
