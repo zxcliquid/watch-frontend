@@ -382,12 +382,12 @@
 
     .room-header-container ul{
       list-style: none;
-  display: flex;
-  margin: 0; /* Убираем маркеры и отступы */
-  padding: 0; /* Убираем внутренние отступы */
-  align-items: center;
-  width: 100%; /* Даем списку всю доступную ширину */
-  justify-content: space-between; /* Распределяет элементы по краям */
+    display: flex;
+    margin: 0; /* Убираем маркеры и отступы */
+    padding: 0; /* Убираем внутренние отступы */
+    align-items: center;
+    width: 100%; /* Даем списку всю доступную ширину */
+    justify-content: space-between; /* Распределяет элементы по краям */
     }
 
     .room-header-container li{
@@ -605,7 +605,8 @@
     .chat-container { padding: 10px; height: 400px; }
     .message-form { flex-direction: column; }
     .send-button { width: 100%; }
-    .room-header-container {font-size: 12px;}
+    .room-header-container { font-size: 12px; }
+    .room-header-container li{ margin: 0 }
   }
   
   /* --- Footer --- */
