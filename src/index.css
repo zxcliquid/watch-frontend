@@ -354,17 +354,48 @@
   /* =========================
     Room Header (Шапка)
     ========================= */
-    .room-header {
+    .room-header-container {
       width: 100%;
       height: 70px;
       background: #0d0d0d;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;  /* Размещаем элементы по краям */
       position: fixed;
       top: 0; left: 0;
       z-index: 1000;
       color: var(--light-text);
+      padding: 0 20px;  /* Добавляем небольшой отступ слева и справа */
+    }
+    .room-header-container p {
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .room-header-container .link-alert {
+      text-align: center;
+      font-size: 14px;
+      background-color: #202024;
+      border-radius: 10px;
+    }
+
+    .room-header-container ul{
+      list-style: none;
+  display: flex;
+  margin: 0; /* Убираем маркеры и отступы */
+  padding: 0; /* Убираем внутренние отступы */
+  align-items: center;
+  width: 100%; /* Даем списку всю доступную ширину */
+  justify-content: space-between; /* Распределяет элементы по краям */
+    }
+
+    .room-header-container li{
+      margin-right: 20px;
+    }
+
+    .room-header-container li:last-child {
+      margin-right: 0; /* Убираем отступ у последнего элемента */
     }
 
   

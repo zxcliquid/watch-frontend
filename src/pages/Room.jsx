@@ -30,9 +30,7 @@ const Room = () => {
 
   return (
     <div className="room-container">
-        <div className="room-header">
             <RoomHeader />
-        </div>
       <div className="video-section">
         <VideoPlayer roomId={roomId} />
       </div>
