@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import VideoPlayer from '../components/VideoPlayer';
 import Chat from '../components/Chat';
 import socket from '../utils/socket';
+import RoomHeader from '../components/RoomHeader';
 
 const Room = () => {
   const { roomId } = useParams();
@@ -29,6 +30,9 @@ const Room = () => {
 
   return (
     <div className="room-container">
+        <div className="room-header">
+            <RoomHeader />
+        </div>
       <div className="video-section">
         <VideoPlayer roomId={roomId} />
       </div>
