@@ -1,8 +1,9 @@
-import { useEffect } from "react"
-import { Router } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useParams } from 'react-router-dom';
 
 const RoomHeader = () => {
+    const { roomId } = useParams();
 
     const navigate = useNavigate()
     const leaveRoom = () => {
@@ -12,7 +13,7 @@ const RoomHeader = () => {
     return(
         <div>
             <h4>Watch Together</h4>
-            <p></p>
+            <p>Код комнаты: {roomId}</p>
             <button onClick={leaveRoom}>Выход</button>
         </div>
     )
