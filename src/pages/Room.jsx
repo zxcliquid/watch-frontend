@@ -33,13 +33,13 @@ const Room = () => {
         <VideoPlayer roomId={roomId} />
       </div>
       <div className="sidebar">
+        <Chat roomId={roomId} />
         <h2>Список пользователей</h2>
         <ul className="user-list">
           {users.map((user, index) => (
             <li key={user.username + user.socketId}>{user.username}</li>
           ))}
         </ul>
-        <Chat roomId={roomId} />
       </div>
     </div>
   );
