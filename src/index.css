@@ -376,6 +376,9 @@
       background-color: var(--primary-color);
       margin-right: 20px;
     }
+    .room-header-container button:last-child{
+      margin-right: 0px;
+    }
 
     .room-header-container .link-alert {
       text-align: center;
