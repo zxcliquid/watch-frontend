@@ -367,14 +367,14 @@
       color: var(--light-text);
       padding: 0 20px;  /* Добавляем небольшой отступ слева и справа */
     }
-    .room-header-container p {
+    .room-header-container span {
       font-weight: bold;
-      cursor: pointer;
       text-decoration: underline;
     }
 
     .room-header-container button {
       background-color: var(--primary-color);
+      margin-right: 20px;
     }
 
     .room-header-container .link-alert {
@@ -681,7 +681,7 @@
     .room-link-input { padding-right: 100px; }
     .change-video-btn { padding: 8px 10px; font-size: 12px; }
     .footer-column { width: 100%; margin-bottom: 20px; }
-    .modal-content { min-width: 300px; font-size: 12px}
+    .modal-content { min-width: 280px; font-size: 12px}
   }
   @media (max-width: 600px) {
     .video-container { padding: 4px 0 0 0; }
