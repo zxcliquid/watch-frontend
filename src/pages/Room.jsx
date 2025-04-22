@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import VideoPlayer from '../components/VideoPlayer';
 import Chat from '../components/Chat';
 import socket from '../utils/socket';
@@ -8,9 +8,16 @@ import RoomHeader from '../components/RoomHeader';
 const Room = () => {
   const { roomId } = useParams();
   const [users, setUsers] = useState([]);
-  const username = localStorage.getItem('username') || 'Аноним';
+  const navigate = useNavigate();
+  const username = localStorage.getItem('username');
 
   useEffect(() => {
+    // Если нет ника — редирект на Home с параметром redirect
+    if (!username) {
+      navigate(`/?redirect=/room/${roomId}`);
+      return;
+    }
+
     socket.emit("join-room", { roomId, username });
 
     socket.on("update-users", (updatedUsers) => {
@@ -26,11 +33,13 @@ const Room = () => {
       socket.off("update-users");
       socket.off("error");
     };
-  }, [roomId, username]);
+  }, [roomId, username, navigate]);
+
+  if (!username) return null; // Пока редиректим — ничего не рендерим
 
   return (
     <div className="room-container">
-            <RoomHeader />
+      <RoomHeader />
       <div className="video-section">
         <VideoPlayer roomId={roomId} />
       </div>

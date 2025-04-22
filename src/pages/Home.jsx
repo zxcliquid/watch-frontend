@@ -1,26 +1,42 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import HomeFooter from "../components/HomeFooter";
 
 const Home = () => {
     const [roomId, setRoomId] = useState("");
-    const [name, setName] = useState(localStorage.getItem("username") || ""); // Проверка по умолчанию
+    const [name, setName] = useState(localStorage.getItem("username") || "");
     const navigate = useNavigate();
+    const location = useLocation();
 
-    // Сохраняем имя в localStorage при его изменении
+    // Получаем redirect из query-параметра
+    const params = new URLSearchParams(location.search);
+    const redirect = params.get("redirect");
+
     useEffect(() => {
         if (name.trim()) {
-            localStorage.setItem("username", name); // Сохраняем только если имя не пустое
+            localStorage.setItem("username", name);
         }
-    }, [name]); // Эффект срабатывает при изменении имени
+    }, [name]);
 
     const createRoom = () => {
         if (!name.trim()) {
-            alert("Введите имя!"); // Если имя пустое, показываем предупреждение
+            alert("Введите имя!");
             return;
         }
         const newRoomId = Math.random().toString(36).substring(2, 9);
         navigate(`/room/${newRoomId}`);
+    };
+
+    const handleJoin = () => {
+        if (!name.trim()) {
+            alert("Введите имя!");
+            return;
+        }
+        if (redirect) {
+            navigate(redirect);
+        } else {
+            navigate(`/room/${roomId}`);
+        }
     };
 
     return (
@@ -50,7 +66,7 @@ const Home = () => {
 
                     <button
                         className="home-join-button home-input"
-                        onClick={() => navigate(`/room/${roomId}`)}
+                        onClick={handleJoin}
                     >
                         Присоединиться
                     </button>
