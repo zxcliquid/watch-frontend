@@ -198,12 +198,12 @@
      ========================= */
   .video-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 50vw;
     margin: 0 auto;
     padding: 24px 16px 0 16px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: enter;
     box-sizing: border-box;
   }
   .video-container iframe {
@@ -373,6 +373,10 @@
       text-decoration: underline;
     }
 
+    .room-header-container button {
+      background-color: var(--primary-color);
+    }
+
     .room-header-container .link-alert {
       text-align: center;
       font-size: 14px;
@@ -398,12 +402,90 @@
       margin-right: 0; /* Убираем отступ у последнего элемента */
     }
 
+    /* =========================
+    QRCode Component (кьюар)
+    ========================= */
+    .qr-block {
+      margin: 16px 0;
+    }
+
+    .qr-code {
+      border: 10px solid #fff;
+    }
+
+    .qr-link {
+      font-size: 12px;
+      margin-top: 8px;
+      word-break: break-all;
+    }
+
+   /* =========================
+    Share Modal (модальное окно)
+    ========================= */
+    /* Затемнение фона */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Контент модального окна */
+.modal-content {
+  background: #222;
+  padding: 32px;
+  border-radius: 8px;
+  min-width: 600px;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+}
+
+/* Кнопка закрытия */
+.modal-close-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+  transition: color 0.2s;
+}
+.modal-close-btn:hover {
+  color: #ffffff;
+}
+
+/* Кнопка копирования */
+.copy-btn {
+  margin-top: 20px;
+  margin-left: 8px;
+  padding: 6px 14px;
+  border-radius: 4px;
+  border: none;
+  background: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+/* Уведомление о копировании */
+.copy-alert {
+  color: var(--accent-color);
+  margin-top: 8px;
+  font-size: 14px;
+}
   
   /* =========================
      Chat (Чат)
      ========================= */
   .chat-container {
-    height: 500px;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     background: var(--dark-bg);
@@ -448,7 +530,7 @@
     color: var(--light-text);
   }
   .send-button {
-    padding: 10px 20px;
+    padding: 10px 15px;
     background: var(--primary-color);
     color: #fff;
     border: none;
@@ -565,6 +647,15 @@
   }
   
   /* --- Room & VideoPlayer --- */
+
+
+  @media (max-width: 1280px) {
+    .send-button{
+      font-size: 12px;
+      padding: 10px 10px;
+    }
+  }
+
   @media (max-width: 1024px) {
     .room-container {
       flex-direction: column;
@@ -613,4 +704,8 @@
   @media (max-width: 768px) {
     .footer-content { flex-direction: column; }
     .footer-column { width: 100%; margin-bottom: 20px; }
+  }
+
+  .qr{
+    border: 10px solid #fff;
   }
