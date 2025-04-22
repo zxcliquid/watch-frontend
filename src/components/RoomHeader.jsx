@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import QRCodeComponent from "./QRCodeComponent";
 
 const RoomHeader = () => {
     const { roomId } = useParams();
@@ -32,7 +33,7 @@ const RoomHeader = () => {
             )}
                 </li>
                 <li><button onClick={leaveRoom}>Выход</button></li>
-                <button>QR</button>
+                <QRCodeComponent/>
             </ul>
         </div>
     );

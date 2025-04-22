@@ -7,6 +7,8 @@ const QRCodeComponent = () => {
       
     const toggleVisibility = () => {
         setIsVisible(!isVisible); // Переключаем видимость
+        console.log("переключено");
+        
     };
 
     return(
