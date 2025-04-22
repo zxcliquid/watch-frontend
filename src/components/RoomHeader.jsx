@@ -32,6 +32,7 @@ const RoomHeader = () => {
             )}
                 </li>
                 <li><button onClick={leaveRoom}>Выход</button></li>
+                <button>QR</button>
             </ul>
         </div>
     );
