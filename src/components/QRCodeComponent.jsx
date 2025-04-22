@@ -1,5 +1,5 @@
 import React from "react";
-import {QRCode} from "qrcode.react"
+import QRCode from "qrcode.react"
 import { useState } from "react";
 
 const QRCodeComponent = () => {
