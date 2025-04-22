@@ -375,6 +375,7 @@
     .room-header-container button {
       background-color: var(--primary-color);
       margin-right: 20px;
+      color: #fff;
     }
     .room-header-container button:last-child{
       margin-right: 0px;
@@ -467,8 +468,8 @@
 .copy-btn {
   margin-top: 20px;
   margin-left: 8px;
-  padding: 6px 14px;
-  border-radius: 4px;
+  padding: 10px 15px;
+  border-radius: 6px;
   border: none;
   background: var(--primary-color);
   color: #fff;

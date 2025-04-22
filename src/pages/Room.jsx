@@ -61,6 +61,7 @@ const Room = () => {
         <ShareModal
           url={roomUrl}
           onClose={() => setIsShareModalOpen(false)}
+          roomId={roomId}
         />
       )}
     </div>
@@ -69,7 +70,7 @@ const Room = () => {
 
 export default Room;
 
-const ShareModal = ({ url, onClose }) => {
+const ShareModal = ({ url, onClose, roomId }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -84,7 +85,7 @@ const ShareModal = ({ url, onClose }) => {
   <div className="modal-content">
     <button className="modal-close-btn" onClick={onClose}>×</button>
     <h2>Поделиться комнатой</h2>
-    <QRCodeComponent url={url} />
+    <QRCodeComponent url={url} roomId={roomId}/>
     <div style={{ marginTop: 16 }}>
       <input
         type="text"
