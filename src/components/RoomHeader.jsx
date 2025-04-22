@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import QRCodeComponent from "./QRCodeComponent";
 
 const RoomHeader = () => {
-    const { roomId } = useParams();
+    const { roomId } = useParams();  // Получаем roomId из параметров
     const [copied, setCopied] = useState(false);
 
     const navigate = useNavigate();
@@ -29,11 +29,12 @@ const RoomHeader = () => {
                         Код комнаты: {roomId}
                     </p>
                     {copied && (
-                <div className="link-alert">Ссылка скопирована!</div> 
-            )}
+                        <div className="link-alert">Ссылка скопирована!</div> 
+                    )}
                 </li>
                 <li><button onClick={leaveRoom}>Выход</button></li>
-                <QRCodeComponent/>
+                {/* Передаем roomId в компонент QRCodeComponent */}
+                <QRCodeComponent roomId={roomId} />
             </ul>
         </div>
     );
