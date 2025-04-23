@@ -687,6 +687,7 @@
     .footer-column { width: 100%; margin-bottom: 20px; }
     .modal-content { min-width: 280px; font-size: 12px}
     .qr-code {width: 128px; height: 128px; border: 5px solid #fff;}
+    .room-id {display: none;}
   }
   @media (max-width: 600px) {
     .video-container { padding: 4px 0 0 0; }

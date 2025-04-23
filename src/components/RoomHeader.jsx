@@ -15,7 +15,7 @@ const RoomHeader = ({ onShareClick }) => {
             <ul>
                 <li><h4>Watch Together</h4></li>
                 <li>
-                    <span>Код комнаты: {roomId}</span>
+                    <span className="room-id">Код комнаты: {roomId}</span>
                 </li>
                 <li>
                     <button onClick={onShareClick}>Поделиться</button>
