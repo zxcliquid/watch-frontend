@@ -18,14 +18,23 @@ const Home = () => {
         }
     }, [name]);
 
+
     const createRoom = () => {
         if (!name.trim()) {
             alert("Введите имя!");
             return;
         }
-        const newRoomId = Math.random().toString(36).substring(2, 9);
+        
+        // Генерируем случайный roomId, минимум 10 символов
+        let newRoomId = Math.random().toString(36).substring(2, 15);  // Начальная длина 13 символов
+        while (newRoomId.length < 15) {
+            // Если строка меньше 10 символов, добавляем еще случайных символов
+            newRoomId += Math.random().toString(36).substring(2, 5);
+        }
+    
         navigate(`/room/${newRoomId}`);
     };
+
 
     const handleJoin = () => {
         if (!name.trim()) {
