@@ -442,7 +442,7 @@
   background: #222;
   padding: 32px;
   border-radius: 8px;
-  min-width: 600px;
+  width: 600px;
   position: relative;
   text-align: center;
   box-shadow: 0 4px 24px rgba(0,0,0,0.15);
