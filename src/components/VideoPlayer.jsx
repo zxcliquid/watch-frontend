@@ -76,7 +76,7 @@ const VideoPlayer = ({ roomId }) => {
     const newVideoId = extractVideoId(inputValue.trim());
     if (newVideoId) {
       setVideoId(newVideoId);
-      socket.emit("sync-video", { roomId, action: "pause", time: 1, videoId: newVideoId });
+      socket.emit("sync-video", { roomId, action: "pause", time: 0, videoId: newVideoId });
       setInputValue("");
     } else {
       alert("Некорректная ссылка или ID!");

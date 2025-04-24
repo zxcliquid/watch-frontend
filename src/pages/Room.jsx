@@ -87,16 +87,8 @@ const ShareModal = ({ url, onClose, roomId }) => {
     <h2>Поделиться комнатой</h2>
     <QRCodeComponent url={url} roomId={roomId}/>
     <div style={{ marginTop: 16 }}>
-      <input
-        type="text"
-        value={url}
-        readOnly
-        style={{ width: "80%" }}
-        onFocus={e => e.target.select()}
-      />
-      <button onClick={handleCopy} className="copy-btn">
-        Копировать
-      </button>
+      <h4 className="copy-txt" onClick={handleCopy}>{url}</h4>
+      <p>Нажмите на ссылку чтобы скопировать</p>
     </div>
     {copied && <div className="copy-alert">Ссылка скопирована!</div>}
   </div>
