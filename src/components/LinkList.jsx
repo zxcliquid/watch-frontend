@@ -1,7 +1,11 @@
 import React from "react";
 
 const LinkList = ({ videos, isOpen, onClose }) => {
-    if (!isOpen) return null;
+    if (!isOpen) return null;  // Проверка, если модальное окно закрыто
+
+    if (!videos || videos.length === 0) {
+        return <div>Загрузка видео...</div>; // Сообщение о загрузке, если видео еще не загружены
+    }
 
     return (
         <div className="modal-overlay">
