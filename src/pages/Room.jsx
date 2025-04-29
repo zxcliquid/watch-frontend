@@ -12,18 +12,21 @@ const Room = () => {
   const [users, setUsers] = useState([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isLinksModalOpen, setIsLinksModalOpen] = useState(false);
+  const [videos, setVideos] = useState([]);  // Состояние для хранения видео
   const navigate = useNavigate();
   const username = localStorage.getItem('username');
 
-
+  // Открытие модального окна
   const openModal = () => {
     setIsLinksModalOpen(true);
   };
 
+  // Закрытие модального окна
   const closeModal = () => {
     setIsLinksModalOpen(false);
-    };
+  };
 
+  // Функция для получения популярных видео с YouTube
   const fetchPopularVideos = async () => {
     const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=US&key=YOUR_API_KEY`);
     const data = await response.json();
@@ -43,9 +46,7 @@ const Room = () => {
       return;
     }
 
-
     socket.emit("join-room", { roomId, username });
-
 
     socket.on("update-users", (updatedUsers) => {
       setUsers(updatedUsers);
@@ -92,37 +93,8 @@ const Room = () => {
       )}
 
       <LinkList videos={videos} isOpen={isLinksModalOpen} onClose={closeModal} />
-      
     </div>
   );
 };
 
 export default Room;
-
-const ShareModal = ({ url, onClose, roomId }) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(url).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
-  };
-
-  return (
-    <div className="modal-overlay">
-  <div className="modal-content">
-    <button className="modal-close-btn" onClick={onClose}>×</button>
-    <h2>Поделиться комнатой</h2>
-    <QRCodeComponent url={url} roomId={roomId}/>
-    <div style={{ marginTop: 16 }}>
-      <h4 className="copy-txt" onClick={handleCopy}>{url}</h4>
-      <p>Нажмите на ссылку чтобы скопировать</p>
-    </div>
-    {copied && <div className="copy-alert">Ссылка скопирована!</div>}
-  </div>
-</div>
-  );
-};
-
-
