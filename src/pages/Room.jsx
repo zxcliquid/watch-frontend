@@ -5,13 +5,23 @@ import Chat from '../components/Chat';
 import socket from '../utils/socket';
 import RoomHeader from '../components/RoomHeader';
 import QRCodeComponent from '../components/QRCodeComponent';
+import LinkList from '../components/LinkList';
 
 const Room = () => {
   const { roomId } = useParams();
   const [users, setUsers] = useState([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isLinksModalOpen, setIsLinksModalOpen] = useState(false);
   const navigate = useNavigate();
   const username = localStorage.getItem('username');
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+const closeModal = () => {
+  setIsModalOpen(false);
+  };
 
   useEffect(() => {
     if (!username) {
@@ -43,7 +53,7 @@ const Room = () => {
 
   return (
     <div className="room-container">
-      <RoomHeader onShareClick={() => setIsShareModalOpen(true)} />
+      <RoomHeader onOpen={openModal} onShareClick={() => setIsShareModalOpen(true)} />
       <div className="video-section">
         <VideoPlayer roomId={roomId} />
       </div>
@@ -64,6 +74,9 @@ const Room = () => {
           roomId={roomId}
         />
       )}
+
+      <LinkList isOpen={isModalOpen} onClose={closeModal} />
+      
     </div>
   );
 };
