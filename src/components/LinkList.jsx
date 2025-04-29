@@ -17,3 +17,5 @@ return (
         </div>
     </div>
 )
+
+export default LinkList
