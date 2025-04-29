@@ -20,17 +20,22 @@ const Room = () => {
     setIsLinksModalOpen(true);
   };
 
-const closeModal = () => {
-  setIsLinksModalOpen(false);
+  const closeModal = () => {
+    setIsLinksModalOpen(false);
+    };
+
+  const fetchPopularVideos = async () => {
+    const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=US&key=YOUR_API_KEY`);
+    const data = await response.json();
+    setVideos(data.items); // Устанавливаем видео в состояние
   };
 
   useEffect(() => {
     const fetchVideos = async () => {
-        const popularVideos = await fetchPopularVideos();
-        setVideos(popularVideos);
+      await fetchPopularVideos();
     };
     fetchVideos();
-}, []);
+  }, []);
 
   useEffect(() => {
     if (!username) {
