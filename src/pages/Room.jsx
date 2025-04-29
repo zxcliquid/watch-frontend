@@ -15,6 +15,7 @@ const Room = () => {
   const navigate = useNavigate();
   const username = localStorage.getItem('username');
 
+
   const openModal = () => {
     setIsLinksModalOpen(true);
   };
@@ -24,12 +25,22 @@ const closeModal = () => {
   };
 
   useEffect(() => {
+    const fetchVideos = async () => {
+        const popularVideos = await fetchPopularVideos();
+        setVideos(popularVideos);
+    };
+    fetchVideos();
+}, []);
+
+  useEffect(() => {
     if (!username) {
       navigate(`/?redirect=/room/${roomId}`);
       return;
     }
 
+
     socket.emit("join-room", { roomId, username });
+
 
     socket.on("update-users", (updatedUsers) => {
       setUsers(updatedUsers);
@@ -75,7 +86,7 @@ const closeModal = () => {
         />
       )}
 
-      <LinkList isOpen={isLinksModalOpen} onClose={closeModal} />
+      <LinkList videos={videos} isOpen={isLinksModalOpen} onClose={closeModal} />
       
     </div>
   );
