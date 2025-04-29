@@ -16,11 +16,11 @@ const Room = () => {
   const username = localStorage.getItem('username');
 
   const openModal = () => {
-    setIsModalOpen(true);
+    setIsLinksModalOpen(true);
   };
 
 const closeModal = () => {
-  setIsModalOpen(false);
+  setIsLinksModalOpen(false);
   };
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const closeModal = () => {
         />
       )}
 
-      <LinkList isOpen={isModalOpen} onClose={closeModal} />
+      <LinkList isOpen={isLinksModalOpen} onClose={closeModal} />
       
     </div>
   );
