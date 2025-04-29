@@ -41,10 +41,6 @@ const Home = () => {
             alert("Введите имя!");
             return;
         }
-        if (!roomId.trim()) {
-            alert("Введите Id комнаты!");
-            return;
-        }
         if (redirect) {
             navigate(redirect);
         } else {
