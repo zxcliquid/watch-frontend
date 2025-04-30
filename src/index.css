@@ -670,33 +670,84 @@
     .home-input { height: 45px; font-size: 14px; }
     .home-id-input, .home-name-input { margin-bottom: 15px; }
     .home-join-button, .home-create-button { font-size: 14px; }
-  }
-  @media (min-width: 481px) and (max-width: 768px) {
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
     .home-container { padding-top: 75px; }
     .home-join { padding: 25px; width: 80%; }
-  }
-  @media (min-width: 769px) {
+}
+
+@media (min-width: 769px) {
     .home-join { min-width: 600px; padding: 40px; }
-  }
-  @media (min-width: 1000px) {
-    .home-join { min-width: 70%; }
-  }
-  @media (min-width: 1500px) {
-    .home-join { min-width: 70%; }
-    .home-input,
+}
+
+@media (min-width: 1000px) {
+    .home-join {
+        min-width: 70%;
+        padding: 50px; 
+    }
+    .home-header {
+        height: 80px; 
+    }
+    .title {
+        font-size: 2.5rem; 
+    }
     .home-join-button,
     .home-create-button {
-      max-width: 400px;
-      font-size: 1.7rem;
-      height: 70px;
+        font-size: 18px;
     }
+}
+
+@media (min-width: 1200px) {
+    .home-container {
+        padding: 100px 50px 0 50px; 
+    }
+    .home-join {
+        width: 60%; 
+        padding: 60px; 
+    }
+}
+
+@media (min-width: 1440px) {
+  .home-container {
+      padding: 120px 60px 0 60px; 
   }
-  @media (min-width: 2000px) {
-    .home-join { min-width: 70%; min-height: 500px; font-size: 2rem; }
-    .home-input,
-    .home-join-button,
-    .home-create-button { font-size: 2rem; }
+  .home-join {
+      width: 50%; 
+      padding: 70px; 
   }
+  .home-header {
+      height: 90px; 
+  }
+  .title {
+      font-size: 3rem;
+  }
+  .home-join-button,
+  .home-create-button {
+      font-size: 20px; 
+  }
+}
+
+@media (min-width: 1600px) {
+  .home-container {
+      padding: 140px 80px 0 80px; 
+  }
+  .home-join {
+      width: 40%; 
+      padding: 80px; 
+  }
+  .home-header {
+      height: 100px; 
+  }
+  .title {
+      font-size: 3.5rem;
+  }
+  .home-join-button,
+  .home-create-button {
+      font-size: 22px; 
+  }
+}
+ 
   
   /* --- Room & VideoPlayer --- */
 
@@ -755,9 +806,6 @@
     .send-button { width: 100%; }
     .room-header-container { font-size: 12px; }
     .room-header-container li{ margin: 0 }
-  }
-  @media (min-width: 385px) {
-    .mini-png { display: none; }
   }
   
   /* --- Footer --- */

@@ -13,7 +13,6 @@ const RoomHeader = ({ onShareClick, onOpen }) => {
     return (
         <div className="room-header-container">
             <ul>
-                <li className="mini-png"><img src="../public/main.png" alt="" /></li>
                 <li>
                     <span className="room-id">Код комнаты: {roomId}</span>
                 </li>
