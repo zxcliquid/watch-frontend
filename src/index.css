@@ -446,7 +446,9 @@
   position: relative;
   text-align: center;
   box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+  overflow-y: auto;
 }
+
 
 /* Кнопка закрытия */
 .modal-close-btn {
@@ -476,6 +478,56 @@
   margin-top: 8px;
   font-size: 14px;
 }
+
+   /* =========================
+    Link List (модальное окно)
+    ========================= */
+
+  
+  .modal-video-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      overflow-y: auto;
+      flex: 1 1 auto;
+      max-height: 60vh;
+  }
+  
+  .modal-video-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+  }
+  
+  .modal-video-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+      flex: 1 1 auto;
+  }
+  
+  .modal-video-thumb {
+      width: 60px;
+      height: 45px;
+      border-radius: 4px;
+      margin-right: 10px;
+  }
+  
+  .modal-video-title {
+      font-size: 1rem;
+      flex: 1 1 auto;
+  }
+  
+  .modal-copy-btn {
+      margin-left: 10px;
+      padding: 4px 8px;
+      cursor: pointer;
+  }
+  
+  .error {
+      color: red;
+  }
   
   /* =========================
      Chat (Чат)
