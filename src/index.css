@@ -756,7 +756,7 @@
     .room-header-container { font-size: 12px; }
     .room-header-container li{ margin: 0 }
   }
-  @media (max-width: 385px) {
+  @media (min-width: 385px) {
     .mini-png { display: none; }
   }
   
