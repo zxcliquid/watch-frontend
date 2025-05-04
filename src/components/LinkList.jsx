@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import socket from "../utils/socket";
 
-const YOUTUBE_API_URL = "https://tube-v31.p.rapidapi.com/playlistItems?playlistId=PLmSVUNPQup0Zp8vSPVp1R0iZqbr9sIiT0&part=snippet&maxResults=30";
+const YOUTUBE_API_URL = "https://tube-v31.p.rapidapi.com/playlistItems?playlistId=PLp3ieED1MN2ZGp7vN8oOt1RXh9QrrgL_8&part=snippet&maxResults=30";
 const RAPIDAPI_KEY = "d1c8051937msh81bca29bb175082p1deabajsnaf707f4e5f19"; 
 
 const LinkList = ({ isOpen, onClose, roomId, onLaunchVideo }) => {
