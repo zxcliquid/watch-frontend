@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
+import socket from '../utils/socket';// <-- добавьте импорт
 
-const YOUTUBE_API_URL = "https://youtube-v31.p.rapidapi.com/search?part=snippet&maxResults=30&q=мистер%20бист&type=video&videoDuration=long";
-const RAPIDAPI_KEY = "d1c8051937msh81bca29bb175082p1deabajsnaf707f4e5f19"; 
+const YOUTUBE_API_URL = "https://youtube-v31.p.rapidapi.com/playlistItems?playlistId=PLp3ieED1MN2ZGp7vN8oOt1RXh9QrrgL_8&part=snippet&maxResults=30";
+const RAPIDAPI_KEY = "d1c8051937msh81bca29bb175082p1deabajsnaf707f4e5f19";
 
-const LinkList = ({ isOpen, onClose }) => {
+const LinkList = ({ isOpen, onClose, roomId }) => { // <-- roomId
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [copiedId, setCopiedId] = useState(null);
+    const [launchedId, setLaunchedId] = useState(null); // <-- для анимации кнопки
 
     useEffect(() => {
         if (!isOpen) return;
         setLoading(true);
         setError("");
+
         fetch(YOUTUBE_API_URL, {
             method: "GET",
             headers: {
@@ -22,10 +24,11 @@ const LinkList = ({ isOpen, onClose }) => {
         })
         .then(res => res.json())
         .then(data => {
-            // Фильтруем только видео
-            const filtered = (data.items || []).filter(
-                v => v.id && v.id.videoId
-            );
+            const filtered = (data.items || []).filter(v => {
+                if (v.id && v.id.videoId) return true;
+                if (v.snippet && v.snippet.resourceId && v.snippet.resourceId.videoId) return true;
+                return false;
+            });
             setVideos(filtered);
             setLoading(false);
         })
@@ -37,10 +40,12 @@ const LinkList = ({ isOpen, onClose }) => {
 
     if (!isOpen) return null;
 
-    const handleCopy = (videoId) => {
-        navigator.clipboard.writeText(`https://www.youtube.com/watch?v=${videoId}`);
-        setCopiedId(videoId);
-        setTimeout(() => setCopiedId(null), 1000);
+    // --- Новый обработчик ---
+    const handleLaunch = (videoId) => {
+        // Отправляем событие sync-video в комнату
+        socket.emit("sync-video", { roomId, action: "pause", time: 0, videoId });
+        setLaunchedId(videoId);
+        setTimeout(() => setLaunchedId(null), 1000);
     };
 
     return (
@@ -51,29 +56,32 @@ const LinkList = ({ isOpen, onClose }) => {
                 {loading && <p>Загрузка...</p>}
                 {error && <p className="error">{error}</p>}
                 <ul className="modal-video-list">
-                    {videos.map((video) => (
-                        <li key={video.id.videoId} className="modal-video-item">
-                            <a
-                                href={`https://www.youtube.com/watch?v=${video.id.videoId}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="modal-video-link"
-                            >
-                                <img
-                                    src={video.snippet.thumbnails.default.url}
-                                    alt={video.snippet.title}
-                                    className="modal-video-thumb"
-                                />
-                                <span className="modal-video-title">{video.snippet.title}</span>
-                            </a>
-                            <button
-                                className="modal-copy-btn"
-                                onClick={() => handleCopy(video.id.videoId)}
-                            >
-                                {copiedId === video.id.videoId ? "Скопировано!" : "Копировать"}
-                            </button>
-                        </li>
-                    ))}
+                    {videos.map((video) => {
+                        const videoId = video.id?.videoId || video.snippet?.resourceId?.videoId;
+                        return (
+                            <li key={videoId} className="modal-video-item">
+                                <a
+                                    href={`https://www.youtube.com/watch?v=${videoId}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="modal-video-link"
+                                >
+                                    <img
+                                        src={video.snippet.thumbnails.default.url}
+                                        alt={video.snippet.title}
+                                        className="modal-video-thumb"
+                                    />
+                                    <span className="modal-video-title">{video.snippet.title}</span>
+                                </a>
+                                <button
+                                    className="modal-copy-btn"
+                                    onClick={() => handleLaunch(videoId)}
+                                >
+                                    {launchedId === videoId ? "Запущено!" : "Запустить для всех"}
+                                </button>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
         </div>

@@ -76,7 +76,7 @@ const closeModal = () => {
         />
       )}
 
-      <LinkList isOpen={isLinksModalOpen} onClose={closeModal} />
+    <LinkList isOpen={isLinksModalOpen} onClose={closeModal} roomId={roomId} />
       
     </div>
   );
