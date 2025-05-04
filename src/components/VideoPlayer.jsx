@@ -11,7 +11,6 @@ function extractVideoId(input) {
 const VideoPlayer = forwardRef(({ roomId }, ref) => {
   const [videoId, setVideoId] = useState(0);
   const [inputValue, setInputValue] = useState("");
-  const [needsManualPlay, setNeedsManualPlay] = useState(false);
   const playerRef = useRef(null);
   const ignoreEvents = useRef(false);
 
@@ -27,13 +26,6 @@ const VideoPlayer = forwardRef(({ roomId }, ref) => {
       } else if (action === "play") {
         player.seekTo(time || 0, true);
         player.playVideo();
-        setTimeout(() => {
-          if (player.getPlayerState() !== 1) {
-            setNeedsManualPlay(true);
-          } else {
-            setNeedsManualPlay(false);
-          }
-        }, 500);
       } else if (action === "pause") {
         player.pauseVideo();
       } else if (action === "seek") {
@@ -91,6 +83,7 @@ const VideoPlayer = forwardRef(({ roomId }, ref) => {
     }
   };
 
+  // --- Делаем метод для внешнего вызова ---
   useImperativeHandle(ref, () => ({
     changeVideo: (newVideoId) => {
       setVideoId(newVideoId);
@@ -108,7 +101,7 @@ const VideoPlayer = forwardRef(({ roomId }, ref) => {
   };
 
   return (
-    <div className="video-container" style={{ position: "relative" }}>
+    <div className="video-container">
       <YouTube
         videoId={videoId}
         opts={options}
@@ -134,35 +127,6 @@ const VideoPlayer = forwardRef(({ roomId }, ref) => {
           Сменить видео
         </button>
       </div>
-      {needsManualPlay && (
-        <div className="manual-play-overlay" style={{
-          position: "absolute",
-          top: 0, left: 0, right: 0, bottom: 0,
-          background: "rgba(0,0,0,0.7)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          zIndex: 10
-        }}>
-          <button
-            style={{
-              fontSize: 24,
-              padding: "16px 32px",
-              borderRadius: 8,
-              border: "none",
-              background: "#ff0000",
-              color: "#fff",
-              cursor: "pointer"
-            }}
-            onClick={() => {
-              playerRef.current.playVideo();
-              setNeedsManualPlay(false);
-            }}
-          >
-            ▶️ Нажмите для воспроизведения
-          </button>
-        </div>
-      )}
     </div>
   );
 });
