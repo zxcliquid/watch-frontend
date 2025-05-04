@@ -5,28 +5,29 @@ const Chat = ({ roomId }) => {
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
+  const messagesContainerRef = useRef(null);
 
   useEffect(() => {
-    // Запрашиваем историю чата при монтировании
     socket.emit("get-chat-history", { roomId });
 
-    socket.on("chat-history", (chatData) => {
-      setMessages(chatData);
-    });
+    socket.on("chat-history", (chatData) => setMessages(chatData));
+    socket.on("chat-message", (data) => setMessages((prev) => [...prev, data]));
 
-    socket.on("chat-message", (data) => {
-      console.log("Получено сообщение:", data);
-      setMessages((prev) => [...prev, data]);
-    });
-  
     return () => {
       socket.off("chat-history");
       socket.off("chat-message");
     };
   }, [roomId]);
-  
+
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    const container = messagesContainerRef.current;
+    if (!container) return;
+
+    // Скроллим только если пользователь уже внизу чата
+    const isAtBottom = container.scrollHeight - container.scrollTop - container.clientHeight < 100;
+    if (isAtBottom) {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }, [messages]);
 
   const sendMessage = (e) => {
@@ -45,7 +46,7 @@ const Chat = ({ roomId }) => {
 
   return (
     <div className="chat-container">
-      <div className="messages-container">
+      <div className="messages-container" ref={messagesContainerRef}>
         {messages.map((msg, index) => (
           <div key={index} className="message">
             <span className="message-username">{msg.username}: </span>
