@@ -23,7 +23,7 @@ const RoomHeader = ({ onShareClick, onOpen }) => {
                     <button onClick={onOpen}>Что посмотреть?</button>
                 </li>
                 <li>
-                    <button onClick={leaveRoom}>Выход</button>
+                    <button className="exit-btn" onClick={leaveRoom}>Выход</button>
                 </li>
             </ul>
         </div>

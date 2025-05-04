@@ -407,6 +407,10 @@
       margin-right: 0; /* Убираем отступ у последнего элемента */
     }
 
+    .exit-btn{
+      background-color: rgb(255, 27, 27) !important;
+    }
+
 
     /* =========================
     QRCode Component (кьюар)
