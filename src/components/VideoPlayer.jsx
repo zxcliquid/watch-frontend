@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react";
 import YouTube from "react-youtube";
 import socket from "../utils/socket";
 
@@ -8,7 +8,7 @@ function extractVideoId(input) {
   return match ? match[1] : null;
 }
 
-const VideoPlayer = ({ roomId }) => {
+const VideoPlayer = forwardRef(({ roomId }, ref) => {
   const [videoId, setVideoId] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const playerRef = useRef(null);
@@ -83,6 +83,16 @@ const VideoPlayer = ({ roomId }) => {
     }
   };
 
+  // --- Делаем метод для внешнего вызова ---
+  useImperativeHandle(ref, () => ({
+    changeVideo: (newVideoId) => {
+      setVideoId(newVideoId);
+      if (playerRef.current) {
+        playerRef.current.loadVideoById(newVideoId, 0);
+      }
+    }
+  }));
+
   const options = {
     playerVars: {
       controls: 1,
@@ -119,6 +129,6 @@ const VideoPlayer = ({ roomId }) => {
       </div>
     </div>
   );
-};
+});
 
 export default VideoPlayer;

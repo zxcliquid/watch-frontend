@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import socket from '../utils/socket';// <-- добавьте импорт
+import socket from "../utils/socket";
 
-const YOUTUBE_API_URL = "https://youtube-v31.p.rapidapi.com/playlistItems?playlistId=PLp3ieED1MN2ZGp7vN8oOt1RXh9QrrgL_8&part=snippet&maxResults=30";
-const RAPIDAPI_KEY = "d1c8051937msh81bca29bb175082p1deabajsnaf707f4e5f19";
+const YOUTUBE_API_URL = "https://tube-v31.p.rapidapi.com/playlistItems?playlistId=PLp3ieED1MN2ZGp7vN8oOt1RXh9QrrgL_8&part=snippet&maxResults=30";
+const RAPIDAPI_KEY = "d1c8051937msh81bca29bb175082p1deabajsnaf707f4e5f19"; 
 
-const LinkList = ({ isOpen, onClose, roomId }) => { // <-- roomId
+const LinkList = ({ isOpen, onClose, roomId, onLaunchVideo }) => {
     const [videos, setVideos] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
-    const [launchedId, setLaunchedId] = useState(null); // <-- для анимации кнопки
+    const [launchedId, setLaunchedId] = useState(null);
 
     useEffect(() => {
         if (!isOpen) return;
@@ -40,10 +40,9 @@ const LinkList = ({ isOpen, onClose, roomId }) => { // <-- roomId
 
     if (!isOpen) return null;
 
-    // --- Новый обработчик ---
     const handleLaunch = (videoId) => {
-        // Отправляем событие sync-video в комнату
         socket.emit("sync-video", { roomId, action: "pause", time: 0, videoId });
+        if (onLaunchVideo) onLaunchVideo(videoId); // <-- локально меняем видео
         setLaunchedId(videoId);
         setTimeout(() => setLaunchedId(null), 1000);
     };

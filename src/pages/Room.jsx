@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import VideoPlayer from '../components/VideoPlayer';
 import Chat from '../components/Chat';
@@ -14,15 +14,10 @@ const Room = () => {
   const [isLinksModalOpen, setIsLinksModalOpen] = useState(false);
   const navigate = useNavigate();
   const username = localStorage.getItem('username');
+  const videoPlayerRef = useRef();
 
-
-  const openModal = () => {
-    setIsLinksModalOpen(true);
-  };
-
-const closeModal = () => {
-  setIsLinksModalOpen(false);
-  };
+  const openModal = () => setIsLinksModalOpen(true);
+  const closeModal = () => setIsLinksModalOpen(false);
 
   useEffect(() => {
     if (!username) {
@@ -52,11 +47,16 @@ const closeModal = () => {
   // Ссылка на комнату
   const roomUrl = window.location.href;
 
+  // Функция для смены видео у себя
+  const handleLaunchVideo = (videoId) => {
+    videoPlayerRef.current?.changeVideo(videoId);
+  };
+
   return (
     <div className="room-container">
       <RoomHeader onOpen={openModal} onShareClick={() => setIsShareModalOpen(true)} />
       <div className="video-section">
-        <VideoPlayer roomId={roomId} />
+        <VideoPlayer ref={videoPlayerRef} roomId={roomId} />
       </div>
       <div className="sidebar">
         <Chat roomId={roomId} />
@@ -76,8 +76,12 @@ const closeModal = () => {
         />
       )}
 
-    <LinkList isOpen={isLinksModalOpen} onClose={closeModal} roomId={roomId} />
-      
+      <LinkList
+        isOpen={isLinksModalOpen}
+        onClose={closeModal}
+        roomId={roomId}
+        onLaunchVideo={handleLaunchVideo}
+      />
     </div>
   );
 };
@@ -96,18 +100,16 @@ const ShareModal = ({ url, onClose, roomId }) => {
 
   return (
     <div className="modal-overlay">
-  <div className="modal-content">
-    <button className="modal-close-btn" onClick={onClose}>×</button>
-    <h2>Поделиться комнатой</h2>
-    <QRCodeComponent url={url} roomId={roomId}/>
-    <div style={{ marginTop: 16 }}>
-      <h4 className="copy-txt" onClick={handleCopy}>{url}</h4>
-      <p>Нажмите на ссылку чтобы скопировать</p>
+      <div className="modal-content">
+        <button className="modal-close-btn" onClick={onClose}>×</button>
+        <h2>Поделиться комнатой</h2>
+        <QRCodeComponent url={url} roomId={roomId}/>
+        <div style={{ marginTop: 16 }}>
+          <h4 className="copy-txt" onClick={handleCopy}>{url}</h4>
+          <p>Нажмите на ссылку чтобы скопировать</p>
+        </div>
+        {copied && <div className="copy-alert">Ссылка скопирована!</div>}
+      </div>
     </div>
-    {copied && <div className="copy-alert">Ссылка скопирована!</div>}
-  </div>
-</div>
   );
 };
-
-
