@@ -429,6 +429,8 @@
       word-break: break-all;
     }
 
+
+
    /* =========================
     Share Modal (модальное окно)
     ========================= */
@@ -521,11 +523,15 @@
       border-radius: 4px;
       margin-right: 10px;
   }
+
   
   .modal-video-title {
-      font-size: 1rem;
-      flex: 1 1 auto;
-  }
+    font-size: 1rem;
+    flex: 1 1 auto;
+    overflow-x: auto;
+    margin-right: 10px;
+    min-width: 0;
+}
   
   .modal-copy-btn {
       margin-left: 10px;
@@ -788,7 +794,7 @@
     .room-link-input { padding-right: 100px; }
     .change-video-btn { padding: 8px 10px; font-size: 12px; }
     .footer-column { width: 100%; margin-bottom: 20px; }
-    .modal-content { width: 320px; font-size: 12px}
+    .modal-content { width: 350px; font-size: 12px; }
     .qr-code {width: 128px; height: 128px; border: 5px solid #fff;}
     .room-id {display: none;}
     .room-header-container button { font-size: 12px; margin-right: 20px;}
@@ -800,6 +806,16 @@
     .change-button { width: 100%; }
     .video-input { font-size: 0.95rem; padding: 8px 10px; }
     .video-container iframe { min-height: 180px; border-radius: 8px; }
+    .modal-video-title {
+      display: block;
+      max-width: 115px; /* или подберите подходящее значение */
+      overflow-x: auto;
+      white-space: nowrap;
+      margin-right: 10px;
+      -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
+      font-size: 13px;
+      
+    }
   }
   @media (max-width: 480px) {
     .video-player iframe { height: 180px; }
