@@ -36,10 +36,9 @@ const HomeFooter = () => {
           </div>
         </div>
       </div>
-
-      {/* Копирайт */}
+      
       <div className="copyright">
-        <p>© 2025 SyncPlay.Все права защищены.</p>
+        <p>© 2025 SyncPlay. Все права защищены.</p>
       </div>
     </footer>
         </div>
