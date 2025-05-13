@@ -10,7 +10,7 @@ const HomeFooter = () => {
       <div className="footer-content">
         {/* Колонка 1: Лого и описание */}
         <div className="footer-column">
-          <h3 className="footer-title">Watch Together</h3>
+          <h3 className="footer-title">SyncPlay</h3>
           <p className="footer-description">
             Пару слов для атмосферы.
           </p>
@@ -39,7 +39,7 @@ const HomeFooter = () => {
 
       {/* Копирайт */}
       <div className="copyright">
-        <p>© 2025 Watch Together. Все права защищены.</p>
+        <p>© 2025 SyncPlay. Все права защищены.</p>
       </div>
     </footer>
         </div>

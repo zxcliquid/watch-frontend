@@ -6,6 +6,7 @@ const Chat = ({ roomId }) => {
   const [message, setMessage] = useState("");
   const messagesEndRef = useRef(null);
   const messagesContainerRef = useRef(null);
+  const message_max_lenght = 300
 
   useEffect(() => {
     socket.emit("get-chat-history", { roomId });
@@ -31,6 +32,11 @@ const Chat = ({ roomId }) => {
   }, [messages]);
 
   const sendMessage = (e) => {
+    event.preventDefault();
+    if (!message || message.length > message_max_lenght){
+      alert("Сообщение слишком длинное")
+      return
+    };
     e.preventDefault();
     if (message.trim()) {
       const username = localStorage.getItem("username") || "Аноним";

@@ -20,6 +20,10 @@ const Home = () => {
 
 
     const createRoom = () => {
+        if (name.length > 15) {
+            alert("Имя слишком длинное")
+            return
+        }
         if (!name.trim()) {
             alert("Введите имя!");
             return;
@@ -37,6 +41,10 @@ const Home = () => {
 
 
     const handleJoin = () => {
+        if (name.length > 15) {
+            alert("Имя слишком длинное")
+            return
+        }
         if (!name.trim()) {
             alert("Введите имя!");
             return;
@@ -52,7 +60,7 @@ const Home = () => {
         <div className="home-body">
             <div className="home-container">
                 <header className="home-header">
-                    <h1 className="title">Watch Together</h1>
+                    <h1 className="title">SyncPlay</h1>
                 </header>
                 <div className="home-join">
                     <h2>С возвращением!</h2>
