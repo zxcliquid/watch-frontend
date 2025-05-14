@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Room from './pages/Room'; // Импорт компонента комнаты
+import Room from './pages/Room'; 
 import Home from './pages/Home'; 
 
 const App = () => {
@@ -7,7 +7,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/room/:roomId" element={<Room />} />  {/* Это маршрут для комнаты */}
+        <Route path="/room/:roomId" element={<Room />} />  
       </Routes>
     </Router>
   );

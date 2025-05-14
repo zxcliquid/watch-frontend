@@ -8,7 +8,6 @@ const Home = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Получаем redirect из query-параметра
     const params = new URLSearchParams(location.search);
     const redirect = params.get("redirect");
 

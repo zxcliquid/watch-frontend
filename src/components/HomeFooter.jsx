@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from "react";
 
 const HomeFooter = () => {
 
-
-
     return (
         <div>
 <footer className="footer">
@@ -36,7 +34,7 @@ const HomeFooter = () => {
           </div>
         </div>
       </div>
-      
+
       <div className="copyright">
         <p>© 2025 SyncPlay. Все права защищены.</p>
       </div>

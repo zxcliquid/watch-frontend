@@ -42,7 +42,7 @@ const LinkList = ({ isOpen, onClose, roomId, onLaunchVideo }) => {
 
     const handleLaunch = (videoId) => {
         socket.emit("sync-video", { roomId, action: "pause", time: 0, videoId });
-        if (onLaunchVideo) onLaunchVideo(videoId); // <-- локально меняем видео
+        if (onLaunchVideo) onLaunchVideo(videoId); 
         setLaunchedId(videoId);
         setTimeout(() => setLaunchedId(null), 1000);
     };

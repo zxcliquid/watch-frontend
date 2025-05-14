@@ -83,7 +83,6 @@ const VideoPlayer = forwardRef(({ roomId }, ref) => {
     }
   };
 
-  // --- Делаем метод для внешнего вызова ---
   useImperativeHandle(ref, () => ({
     changeVideo: (newVideoId) => {
       setVideoId(newVideoId);
