@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import socket from "../utils/socket";
 
-const YOUTUBE_API_URL = "https://tube-v31.p.rapidapi.com/playlistItems?playlistId=PLp3ieED1MN2ZGp7vN8oOt1RXh9QrrgL_8&part=snippet&maxResults=30";
+const YOUTUBE_API_URL = "https://youtube-v31.p.rapidapi.com/playlistItems?playlistId=PLVLOGRgeB0_BXgA-7OmRR6GNXh6M0qzmC&part=snippet&maxResults=30";
 const RAPIDAPI_KEY = "b561a99173msh3d38c88dd8b9ffep142b41jsnb9c365527867"; 
 
 const LinkList = ({ isOpen, onClose, roomId, onLaunchVideo }) => {
@@ -60,7 +60,7 @@ const LinkList = ({ isOpen, onClose, roomId, onLaunchVideo }) => {
                         return (
                             <li key={videoId} className="modal-video-item">
                                 <a
-                                    href={`https://www.tube.com/watch?v=${videoId}`}
+                                    href={`https://www.youtube.com/watch?v=${videoId}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="modal-video-link"
