@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-const RoomHeader = ({ onShareClick, onOpen }) => {
+const RoomHeader = ({ onShareClick, onOpen, onOpenContacts }) => {
     const { roomId } = useParams();
     const navigate = useNavigate();
 
@@ -20,7 +20,13 @@ const RoomHeader = ({ onShareClick, onOpen }) => {
                     <button onClick={onShareClick}>Поделиться</button>
                 </li>
                 <li>
-                    <button onClick={onOpen}>Что посмотреть?</button>
+                    <button onClick={onOpen}>Онлайн уроки</button>
+                </li>
+                <li className="contacts-btn">
+                    <button onClick={onOpenContacts}>Контакты преподавателей</button>
+                </li>
+                <li className="mini-contacts-btn">
+                    <button onClick={onOpenContacts}>Контакты</button>
                 </li>
                 <li>
                     <button className="exit-btn" onClick={leaveRoom}>Выход</button>

@@ -6,18 +6,24 @@ import socket from '../utils/socket';
 import RoomHeader from '../components/RoomHeader';
 import QRCodeComponent from '../components/QRCodeComponent';
 import LinkList from '../components/LinkList';
+import ContactsModal from '../components/ContactsModal';
 
 const Room = () => {
   const { roomId } = useParams();
   const [users, setUsers] = useState([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isLinksModalOpen, setIsLinksModalOpen] = useState(false);
+  const [isContactsModalOpen, setIsContactsModalOpen] = useState(false); 
   const navigate = useNavigate();
   const username = localStorage.getItem('username');
   const videoPlayerRef = useRef();
 
   const openModal = () => setIsLinksModalOpen(true);
   const closeModal = () => setIsLinksModalOpen(false);
+
+
+  const openContactsModal = () => setIsContactsModalOpen(true); 
+  const closeContactsModal = () => setIsContactsModalOpen(false); 
 
   useEffect(() => {
     if (!username) {
@@ -54,7 +60,7 @@ const Room = () => {
 
   return (
     <div className="room-container">
-      <RoomHeader onOpen={openModal} onShareClick={() => setIsShareModalOpen(true)} />
+      <RoomHeader onOpen={openModal} onShareClick={() => setIsShareModalOpen(true)} onOpenContacts={openContactsModal}/>
       <div className="video-section">
         <VideoPlayer ref={videoPlayerRef} roomId={roomId} />
       </div>
@@ -82,6 +88,10 @@ const Room = () => {
         roomId={roomId}
         onLaunchVideo={handleLaunchVideo}
       />
+
+    {isContactsModalOpen && (
+        <ContactsModal onClose={closeContactsModal} />  // Отображаем модальное окно с контактами
+      )}
     </div>
   );
 };

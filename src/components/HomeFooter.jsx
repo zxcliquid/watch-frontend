@@ -8,7 +8,8 @@ const HomeFooter = () => {
       <div className="footer-content">
         {/* Колонка 1: Лого и описание */}
         <div className="footer-column">
-          <h3 className="footer-title">SyncPlay</h3>
+          <h4 className="footer-title">Education platform
+          by Step Academy</h4>
           <p className="footer-description">
             Пару слов для атмосферы.
           </p>
@@ -36,7 +37,7 @@ const HomeFooter = () => {
       </div>
 
       <div className="copyright">
-        <p>© 2025 SyncPlay. Все права защищены.</p>
+        <p>© 2025 EPSA. Все права защищены.</p>
       </div>
     </footer>
         </div>

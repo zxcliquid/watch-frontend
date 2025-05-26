@@ -59,7 +59,8 @@ const Home = () => {
         <div className="home-body">
             <div className="home-container">
                 <header className="home-header">
-                    <h1 className="title">SyncPlay</h1>
+                    <img width="64" src="logo.jpeg" alt=""/>
+                    <h5>Education platform <p>by Step Academy</p></h5>
                 </header>
                 <div className="home-join">
                     <h2>С возвращением!</h2>
