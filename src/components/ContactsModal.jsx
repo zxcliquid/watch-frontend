@@ -36,7 +36,7 @@ const ContactsModal = ({ onClose }) => {
             {/* Добавь другие контакты по мере необходимости */}
           </ul>
         </div>
-        {copied && <div className="copy-alert">Ссылка скопирована!</div>}
+        {copied && <div className="copy-alert">Скопировано!</div>}
       </div>
     </div>
   );

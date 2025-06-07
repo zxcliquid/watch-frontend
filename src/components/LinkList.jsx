@@ -51,7 +51,7 @@ const LinkList = ({ isOpen, onClose, roomId, onLaunchVideo }) => {
         <div className="modal-overlay">
             <div className="modal-content">
                 <button className="modal-close-btn" onClick={onClose}>×</button>
-                <h2>Топ видео YouTube</h2>
+                <h2>Рекомендуемые видеоуроки</h2>
                 {loading && <p>Загрузка...</p>}
                 {error && <p className="error">{error}</p>}
                 <ul className="modal-video-list">
