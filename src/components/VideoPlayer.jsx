@@ -9,7 +9,7 @@ function extractVideoId(input) {
 }
 
 const VideoPlayer = forwardRef(({ roomId }, ref) => {
-  const [videoId, setVideoId] = useState(0);
+  const [videoId, setVideoId] = useState(null);
   const [inputValue, setInputValue] = useState("");
   const playerRef = useRef(null);
   const ignoreEvents = useRef(false);
